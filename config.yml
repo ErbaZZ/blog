@@ -8,7 +8,7 @@ buildDrafts: false
 buildFuture: false
 buildExpired: false
 
-googleAnalytics: UA-123-45
+googleAnalytics: G-FNSQDE9Y15
 
 minify:
   disableXML: true
@@ -53,8 +53,8 @@ params:
 
   label:
     text: "ErbaZZ's Space"
-    icon: /apple-touch-icon.png
-    iconHeight: 35
+    # icon: /favicon.ico
+    # iconHeight: 35
 
   # profile-mode
   profileMode:
@@ -84,7 +84,7 @@ params:
 
   analytics:
     google:
-      SiteVerificationTag: "XYZabc"
+      SiteVerificationTag: "G-FNSQDE9Y15"
     bing:
       SiteVerificationTag: "XYZabc"
     yandex:

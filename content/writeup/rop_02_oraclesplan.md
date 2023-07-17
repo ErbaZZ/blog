@@ -12,13 +12,13 @@ tags: [rop, web, ctf, writeup]
 **Score:** 100 pts  
 **Link:** [https://game.rop.sh](https://game.rop.sh/task) 
 
-![Challenge Description](/images/rop/02/rop_02_challenge.png)*Oracle's Plan challenge description*
+{{< img src="/images/rop/02/rop_02_challenge.png" alt="Challenge Description">}}*Oracle's Plan challenge description*
 
 <!--more-->
 
 The challenge provides us a link to a website, which looks like this:
 
-![Challenge Webpage](/images/rop/02/rop_02_webpage.png)*Webpage of the challenge*
+{{< img src="/images/rop/02/rop_02_webpage.png" alt="Challenge Webpage">}}*Webpage of the challenge*
 
 It is a simple page with an image and a line of text. The first thing to do, of course, is to view the page source.
 
@@ -58,10 +58,10 @@ img {
 
 The comment on line 29 hints us that the robots would not know about the page. The bots (or the crawlers) would not access the pages specified within "robots.txt", so that is where we would have a look.
 
-![robots.txt](/images/rop/02/rop_02_robots.png)*robots.txt*
+{{< img src="/images/rop/02/rop_02_robots.png" alt="robots.txt">}}*robots.txt*
 
 Surprisingly(?), there's a suspicious file name inside, and the flag can be found in that file.
 
-![robots.txt](/images/rop/02/rop_02_flag.png)*Flag*
+{{< img src="/images/rop/02/rop_02_flag.png" alt="robots.txt">}}*Flag*
 
 This is an easy challenge. Anyone would be able to solve it if the person knows about robots.txt file. However, if not, it would be surprisingly hard.

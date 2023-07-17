@@ -8,11 +8,11 @@ tags: [ctf, writeup, competition]
 In August, I had a chance to participate in an online CTF competition called Financial Cybersecurity Bootcamp 2018, which is a jeopardy style competition with the time limit of 24 hours. Together with my team, !IsCaptured, we solved 4 of the challenges and became eligible to participate in the final round.
 <!--more-->
 
-![Finalist Teams](/images/fincybersec2018/fincybersec2018_finalists.jpg)*Finalist Teams Announcement*
+{{< img src="/images/fincybersec2018/fincybersec2018_finalists.jpg" alt="Finalist Teams">}}*Finalist Teams Announcement*
 
 The final round was held at the Bank of Thailand Learning Center at 27 October. The style of the competition is different from the first round, as the problems are sequential, such that you need to solve the first challenge in order to continue to the next and so on. The goal is to hack into the system of an imaginary bank called **Cat Bank**.
 
-![!IsCaptured](/images/fincybersec2018/fincybersec2018_team.jpg)*!IsCaptured Team*
+{{< img src="/images/fincybersec2018/fincybersec2018_team.jpg" alt="!IsCaptured">}}*!IsCaptured Team*
 
 There are a total of 5 challenges, the first one provides an NTLM hash of a bank officer with the last two characters missing. It is hinted that we should use Pass the Hash attack on the server using the given hash.
 
@@ -33,27 +33,27 @@ for i in range (0, len(list)):
 
 With the script, in less than a minute, we were able to access the domain controller using one of the back officers account.
 
-![Domain Controller Terminal](/images/fincybersec2018/fincybersec2018_1_1.png)*Connected to the Domain Controller*
+{{< img src="/images/fincybersec2018/fincybersec2018_1_1.png" alt="Domain Controller Terminal">}}*Connected to the Domain Controller*
 
 Since we had zero experience interacting with this type of server, we just run **help** as it suggested to see the list of all available commands.
 
 And of course, we used **ls** to list the current directory, but it responded with "[-] No share selected", so we tried **shares**.
 
-![Trying out the commands](/images/fincybersec2018/fincybersec2018_1_2.png)*Trying out the commands*
+{{< img src="/images/fincybersec2018/fincybersec2018_1_2.png" alt="Trying out the commands">}}*Trying out the commands*
 
 We could see 7 different share names, and the most suspicious one is **financial_reports**, so we accessed the share with **use financial_reports** and **ls** again.
 
-![Accessing the share](/images/fincybersec2018/fincybersec2018_1_3.png)*Accessing the share*
+{{< img src="/images/fincybersec2018/fincybersec2018_1_3.png" alt="Accessing the share">}}*Accessing the share*
 
 Here, we could see an xlsx file, so we downloaded it using **get confidential_2.xlsx** and opened it, revealing the flag and another user account to continue with the next challenge.
 
-![Excel file containing the flag](/images/fincybersec2018/fincybersec2018_1_flag.png)*Excel file containing the flag*
+{{< img src="/images/fincybersec2018/fincybersec2018_1_flag.png" alt="Excel file containing the flag">}}*Excel file containing the flag*
 
 The next challenge tells us that "The system administrator really loves Linux, but his boss has ordered him to use Windows Server. Therefore, he made a hidden way to access his server like Linux".
 
 For this, we started by using nmap to do the default scan, but to no avails, nothing interesting appeared. Therefore, we decided to use nmap to do service scan to scan the whole thing starting from port 1. After a long wait, we finally found something interesting.
 
-![Nmap port scanning result](/images/fincybersec2018/fincybersec2018_2_1.png)*Nmap port scanning result*
+{{< img src="/images/fincybersec2018/fincybersec2018_2_1.png" alt="Nmap port scanning result">}}*Nmap port scanning result*
 
 We could see that there is an open port with OpenSSH on it, which could be the admin's hidden "Linux way" to access the server. Using the provided credential from the last challenge, we used ssh to connect to the server, and voila, we now have the access to the Windows command prompt.
 
@@ -61,16 +61,16 @@ After looking around for a bit, we found a file called *note.docx* on the deskto
 
 This is what we have found:
 
-![note.docx](/images/fincybersec2018/fincybersec2018_2_2.png)*note.docx*
+{{< img src="/images/fincybersec2018/fincybersec2018_2_2.png" alt="note.docx">}}*note.docx*
 
 Yes, an empty Microsoft Word file... or is it?
 
-![Highlighting the content](/images/fincybersec2018/fincybersec2018_2_3.png)*Highlighting the content*
+{{< img src="/images/fincybersec2018/fincybersec2018_2_3.png" alt="Highlighting the content">}}*Highlighting the content*
 
-![Flag :)](/images/fincybersec2018/fincybersec2018_2_flag.png)*Flag :)*
+{{< img src="/images/fincybersec2018/fincybersec2018_2_flag.png" alt="Flag">}}*Flag :)*
 
 And this is the furthest we could go before the end of the competition. Surprisingly, even though most teams passed the second challenge, we were faster than most and won as the Second Runner-up.
 
-![Second Runner-up](/images/fincybersec2018/fincybersec2018_3rdplace.jpg)*!IsCaptured winning Second Runner-up*
+{{< img src="/images/fincybersec2018/fincybersec2018_3rdplace.jpg" alt="Second Runner-up">}}*!IsCaptured winning Second Runner-up*
 
 This is our first time participating in a on-site CTF competition, and the first time to work on a sequential CTF challenges. It was a fun and memorable experience. I have learned a lot, and there are still much more interesting things for me to learn!

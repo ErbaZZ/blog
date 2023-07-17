@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>th on ErbaZZ&#39;s Space</title>
+    <link>https://erbazz.me/tags/th/</link>
+    <description>Recent content in th on ErbaZZ&#39;s Space</description>
+    <image>
+      <title>ErbaZZ&#39;s Space</title>
+      <url>https://erbazz.me/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</url>
+      <link>https://erbazz.me/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Wed, 29 Apr 2020 23:39:11 +0700</lastBuildDate><atom:link href="https://erbazz.me/tags/th/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>[Writeup] Hack The Box: OpenAdmin (Thai Version)</title>
+      <link>https://erbazz.me/writeup/htb_openadmin_th/</link>
+      <pubDate>Wed, 29 Apr 2020 23:39:11 +0700</pubDate>
+      
+      <guid>https://erbazz.me/writeup/htb_openadmin_th/</guid>
+      <description>&lt;p&gt;สำหรับวันนี้ เรามาลองดูเครื่องที่ชื่อว่า OpenAdmin ใน Hack The Box กันนะครับ เครื่องนี้เป็นเครื่องระดับง่าย ที่มือใหม่ก็น่าจะพอเล่นกันผ่านได้โดยไม่ยากครับ&lt;/p&gt;
+&lt;p&gt;&lt;img loading=&#34;lazy&#34; src=&#34;https://erbazz.me/images/htb_openadmin/infocard.png&#34; alt=&#34;&#34;  /&gt;
+&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

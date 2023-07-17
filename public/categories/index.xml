@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Categories on ErbaZZ&#39;s Space</title>
+    <link>https://erbazz.me/categories/</link>
+    <description>Recent content in Categories on ErbaZZ&#39;s Space</description>
+    <image>
+      <title>ErbaZZ&#39;s Space</title>
+      <url>https://erbazz.me/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</url>
+      <link>https://erbazz.me/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Sat, 08 Aug 2020 23:53:00 +0700</lastBuildDate><atom:link href="https://erbazz.me/categories/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>writeup</title>
+      <link>https://erbazz.me/categories/writeup/</link>
+      <pubDate>Sat, 08 Aug 2020 23:53:00 +0700</pubDate>
+      
+      <guid>https://erbazz.me/categories/writeup/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

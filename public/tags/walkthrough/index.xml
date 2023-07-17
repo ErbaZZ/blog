@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>walkthrough on ErbaZZ&#39;s Space</title>
+    <link>https://erbazz.me/tags/walkthrough/</link>
+    <description>Recent content in walkthrough on ErbaZZ&#39;s Space</description>
+    <image>
+      <title>ErbaZZ&#39;s Space</title>
+      <url>https://erbazz.me/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</url>
+      <link>https://erbazz.me/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Sat, 08 Aug 2020 23:53:00 +0700</lastBuildDate><atom:link href="https://erbazz.me/tags/walkthrough/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>[Writeup] Hack The Box: Tabby</title>
+      <link>https://erbazz.me/writeup/htb_tabby/</link>
+      <pubDate>Sat, 08 Aug 2020 23:53:00 +0700</pubDate>
+      
+      <guid>https://erbazz.me/writeup/htb_tabby/</guid>
+      <description>&lt;p&gt;Here&amp;rsquo;s my writeup for &lt;strong&gt;Tabby&lt;/strong&gt;, a Linux box on Hack The Box. This one is created by &lt;strong&gt;egre55&lt;/strong&gt; and it is rated as &lt;em&gt;Easy&lt;/em&gt;. The techniques required to clear &lt;strong&gt;Tabby&lt;/strong&gt; are not complicated, but you need to connect the dots, using information/vulnerabilities from one component to gain access to other components.&lt;/p&gt;
+&lt;p&gt;&lt;img loading=&#34;lazy&#34; src=&#34;https://erbazz.me/images/htb_tabby/info.png&#34; alt=&#34;&#34;  /&gt;
+&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>[Writeup] Hack The Box: Magic</title>
+      <link>https://erbazz.me/writeup/htb_magic/</link>
+      <pubDate>Wed, 06 May 2020 13:40:00 +0700</pubDate>
+      
+      <guid>https://erbazz.me/writeup/htb_magic/</guid>
+      <description>&lt;p&gt;Let me show you a Magic! This is a Medium difficulty Linux box that employs old but still relevant tricks. You need to know the &lt;em&gt;&lt;strong&gt;Magic&lt;/strong&gt;&lt;/em&gt; and how Linux operates with files to clear this box.&lt;/p&gt;
+&lt;p&gt;&lt;img loading=&#34;lazy&#34; src=&#34;https://erbazz.me/images/htb_magic/infocard.png&#34; alt=&#34;&#34;  /&gt;
+&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>[Writeup] Hack The Box: Monteverde</title>
+      <link>https://erbazz.me/writeup/htb_monteverde/</link>
+      <pubDate>Tue, 05 May 2020 23:28:11 +0700</pubDate>
+      
+      <guid>https://erbazz.me/writeup/htb_monteverde/</guid>
+      <description>&lt;p&gt;Monteverde is a Medium difficulty Windows box. You don&amp;rsquo;t need many fancy techniques to clear this box, as the process is quite clear and straightforward. The important point for this box is enumeration, as the saying goes, &lt;em&gt;&amp;ldquo;Enumeration is the key&amp;rdquo;&lt;/em&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;img loading=&#34;lazy&#34; src=&#34;https://erbazz.me/images/htb_monteverde/infocard.png&#34; alt=&#34;&#34;  /&gt;
+&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>[Writeup] Hack The Box: OpenAdmin</title>
+      <link>https://erbazz.me/writeup/htb_openadmin/</link>
+      <pubDate>Wed, 29 Apr 2020 23:39:12 +0700</pubDate>
+      
+      <guid>https://erbazz.me/writeup/htb_openadmin/</guid>
+      <description>&lt;p&gt;Let&amp;rsquo;s pwn OpenAdmin from Hack The Box. This box is quite easy, as there are multiple ways to get the user flag. One part of the solution I used below is too easy in my opinion, as it could be caused by the overlook of the box creator.&lt;/p&gt;
+&lt;p&gt;&lt;img loading=&#34;lazy&#34; src=&#34;https://erbazz.me/images/htb_openadmin/infocard.png&#34; alt=&#34;&#34;  /&gt;
+&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>[Writeup] Hack The Box: OpenAdmin (Thai Version)</title>
+      <link>https://erbazz.me/writeup/htb_openadmin_th/</link>
+      <pubDate>Wed, 29 Apr 2020 23:39:11 +0700</pubDate>
+      
+      <guid>https://erbazz.me/writeup/htb_openadmin_th/</guid>
+      <description>&lt;p&gt;สำหรับวันนี้ เรามาลองดูเครื่องที่ชื่อว่า OpenAdmin ใน Hack The Box กันนะครับ เครื่องนี้เป็นเครื่องระดับง่าย ที่มือใหม่ก็น่าจะพอเล่นกันผ่านได้โดยไม่ยากครับ&lt;/p&gt;
+&lt;p&gt;&lt;img loading=&#34;lazy&#34; src=&#34;https://erbazz.me/images/htb_openadmin/infocard.png&#34; alt=&#34;&#34;  /&gt;
+&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>[Writeup] Hack The Box: Craft</title>
+      <link>https://erbazz.me/writeup/htb_craft/</link>
+      <pubDate>Tue, 17 Mar 2020 22:03:11 +0700</pubDate>
+      
+      <guid>https://erbazz.me/writeup/htb_craft/</guid>
+      <description>&lt;p&gt;Hello! It&amp;rsquo;s been ages since I&amp;rsquo;ve updated this blog. This is a writeup for &amp;ldquo;Craft&amp;rdquo; on HTB that I have written since last November, when it was still up and running. I have totally forgotten about it until today, which I have just found out that it has been retired. It&amp;rsquo;s a few months late, and there are writeups on this box everywhere, but here it is.&lt;/p&gt;
+&lt;p&gt;&lt;img loading=&#34;lazy&#34; src=&#34;https://erbazz.me/images/htb_craft/craft.png&#34; alt=&#34;&#34;  /&gt;
+&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

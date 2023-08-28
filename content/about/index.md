@@ -1,16 +1,14 @@
 ---
 layout: page
-title: About Me
+title: Weerawat P.
 permalink: /about/
+author: ['']
 socialShare: false
 showtoc: false
 ShowReadingTime: false
 ShowPostNavLinks: false
 ShowWordCount: false
-ShowBreadCrumbs: true
 ---
-
-# Weerawat P.
 
 > Cybersecurity Enthusiast | Blockchain Security Researcher | Smart Contract Auditor | Penetration Tester, Cybersecurity Consultant
 
@@ -34,6 +32,7 @@ ShowBreadCrumbs: true
 - Speaker in [MiSSConf(SP6)](https://missconf.github.io/SP6.html): Breaching Active Directory — From Guest to Domain Admin (Jun 2020)
 
 ## Achievements
+- Second Runner-up (Onsite) of [HITB SECCONF CTF 2023](https://conference.hitb.org/hitbsecconf2023hkt/capture-the-flag/) (Aug 2023)
 - Winner of [Cyber SEA Game 2021](https://www.facebook.com/AJCCBC/posts/pfbid0Y1ssVDtcM5AcqHkvES2NSosQHSu9DPX6w2GmDH4tiy55et8QtpM2H6mtxHy9XbLEl) (Nov 2021)
 - Winner of [Thailand Cyber Top Talent 2021](https://www.facebook.com/NCSA.Thailand/posts/pfbid02nmRoUTwmvWsWPQ99FL4BNESNRKJbMb427RocEet7a3bUZEM112LZv4sNHMAKkTAfl) (Oct 2021)
 - Second Runner-up of [Financial Cybersecurity Boot Camp 2018](https://www.facebook.com/FincybersecThailand/posts/415248582295785/) CTF Competition (Oct 2018)

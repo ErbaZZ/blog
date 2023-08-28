@@ -7,7 +7,7 @@ tags: [writeup, walkthrough, htb, hackthebox]
 
 Let me show you a Magic! This is a Medium difficulty Linux box that employs old but still relevant tricks. You need to know the ***Magic*** and how Linux operates with files to clear this box.
 
-{{< img src="/images/htb_magic/infocard.png">}}
+{{< img src="/images/writeup/htb_magic/infocard.png">}}
 
 <!--more-->
 
@@ -47,68 +47,68 @@ There are only 2 ports open, `ssh` on `22` and `http` on `80`, so let's start wi
 
 On the home page, there's a gallery of images and a Login button at the bottom left, telling us that new images could be uploaded.
 
-{{< img src="/images/htb_magic/80_home.png">}}
+{{< img src="/images/writeup/htb_magic/80_home.png">}}
 
 From the source, we can see some images are from the upload path at `images/uploads/*`
 
-{{< img src="/images/htb_magic/80_home_source.png">}}
+{{< img src="/images/writeup/htb_magic/80_home_source.png">}}
 
 The login page is just a simple username and password form.
 
-{{< img src="/images/htb_magic/80_login.png">}}
+{{< img src="/images/writeup/htb_magic/80_login.png">}}
 
 ## Gaining Access
 
 We can get through that super easily with a common SQL injection payload `' OR '1'='1` as our username and password.
 
-{{< img src="/images/htb_magic/80_sql.png">}}
+{{< img src="/images/writeup/htb_magic/80_sql.png">}}
 
-{{< img src="/images/htb_magic/80_upload.png">}}
+{{< img src="/images/writeup/htb_magic/80_upload.png">}}
 
 Now that we can upload files to the server, I tried to upload a PHP reverse shell script to the server.
 
-{{< img src="/images/htb_magic/nano_phpreverseshell.png">}}
+{{< img src="/images/writeup/htb_magic/nano_phpreverseshell.png">}}
 
 However, the error message shows that only image file extensions are allowed.
 
-{{< img src="/images/htb_magic/upload_php.png">}}
+{{< img src="/images/writeup/htb_magic/upload_php.png">}}
 
 I renamed the reverse shell file to end with the `.php;.png` extension to bypass the restriction. This way, the upload checker would see that the file is a `png` file, but the web server could process the semicolon `;` and terminates the string, so it sees the file as `php-reverse-shell.php` and execute the PHP script inside.
 
-{{< img src="/images/htb_magic/phppng.png">}}
+{{< img src="/images/writeup/htb_magic/phppng.png">}}
 
 Unfortunately, I got a new error message when I tried to upload that. This could mean that the upload function checks further than just the filename, and very likely checks the file content.
 
-{{< img src="/images/htb_magic/upload_phppng.png">}}
+{{< img src="/images/writeup/htb_magic/upload_phppng.png">}}
 
 One of the easiest ways to determine the file type without the extension is using the file `magic bytes` which is the file signature in the beginning bytes of the file (Read more at <https://en.wikipedia.org/wiki/List_of_file_signatures>).
 
 So, to make the system think that my PHP reverse shell file is really an image file, I copied the `magic bytes` from a real png file and prepend it to the `.php;.png` file.
 
-{{< img src="/images/htb_magic/revshellpng.png">}}
+{{< img src="/images/writeup/htb_magic/revshellpng.png">}}
 
 I could successfully upload this file with the `magic bytes` added.
 
-{{< img src="/images/htb_magic/upload_phppng2.png">}}
+{{< img src="/images/writeup/htb_magic/upload_phppng2.png">}}
 
 I then accessed `http://10.10.10.185/images/uploads/reverse.php;.png` on my web browser to execute the reverse shell script and get a connection back to my listener.
 
-{{< img src="/images/htb_magic/wwwshell.png">}}
+{{< img src="/images/writeup/htb_magic/wwwshell.png">}}
 
 With access to the files, I looked at the website files and found a database credential `theseus:iamkingtheseus` in the database config file of the website.
 
 
-{{< img src="/images/htb_magic/dbphp5.png">}}
+{{< img src="/images/writeup/htb_magic/dbphp5.png">}}
 
 I tried to log in as `theseus` with the credential found but failed.
 
-{{< img src="/images/htb_magic/sshfailed.png">}}
+{{< img src="/images/writeup/htb_magic/sshfailed.png">}}
 
-{{< img src="/images/htb_magic/sufailed.png">}}
+{{< img src="/images/writeup/htb_magic/sufailed.png">}}
 
 On the `login.php` file, there is a part of the code that log in to the database and fetches the user from the `login` table.
 
-{{< img src="/images/htb_magic/loginphp.png">}}
+{{< img src="/images/writeup/htb_magic/loginphp.png">}}
 
 I copied the file, modified it to print out the whole table, and uploaded it to the web path.
 
@@ -137,44 +137,44 @@ try {
 ?>
 ```
 
-{{< img src="/images/htb_magic/uploaddbread.png">}}
+{{< img src="/images/writeup/htb_magic/uploaddbread.png">}}
 
 I then accessed the page with my web browser and got another set of credential `theseus:Th3s3usW4sK1ng`.
 
-{{< img src="/images/htb_magic/dbreadpassword.png">}}
+{{< img src="/images/writeup/htb_magic/dbreadpassword.png">}}
 
 I was able to log in as `thesues` with the new credential.
 
-{{< img src="/images/htb_magic/theseusshell.png">}}
+{{< img src="/images/writeup/htb_magic/theseusshell.png">}}
 
 ## Privilege Escalation
 
 The user `thesues` is in a suspicious group named `users`, so I searched for the files owned by the `users` group and found `/bin/sysinfo`.
 
-{{< img src="/images/htb_magic/theseusgroup.png">}}
+{{< img src="/images/writeup/htb_magic/theseusgroup.png">}}
 
 The file is a suid binary, so it would run with `root` privilege.
 
-{{< img src="/images/htb_magic/sysinfosuid.png">}}
+{{< img src="/images/writeup/htb_magic/sysinfosuid.png">}}
 
 I run the binary and it prints out information about the system.
 
-{{< img src="/images/htb_magic/sysinforun.png">}}
+{{< img src="/images/writeup/htb_magic/sysinforun.png">}}
 
 With `strings /bin/sysinfo`, I could see that it runs multiple binaries with relative paths rather than absolute paths, such as `lshw`, `fdisk`, `cat`, and `free`.
 
-{{< img src="/images/htb_magic/sysinfostrings.png">}}
+{{< img src="/images/writeup/htb_magic/sysinfostrings.png">}}
 
 With that known, we can easily hijack the `PATH` variable to use `sysinfo` to run our desired binary as root. I uploaded a reverse shell binary created with `msfvenom`, renamed it to one of the binaries found previously, `lshw`, and added the current path to the beginning of the `PATH` variable.
 
-{{< img src="/images/htb_magic/msfvenom.png">}}
+{{< img src="/images/writeup/htb_magic/msfvenom.png">}}
 
-{{< img src="/images/htb_magic/revupload.png">}}
+{{< img src="/images/writeup/htb_magic/revupload.png">}}
 
-{{< img src="/images/htb_magic/revprepare.png">}}
+{{< img src="/images/writeup/htb_magic/revprepare.png">}}
 
 When the `/bin/sysinfo` is executed and reaches the path that calls `lshw`, the system would search for the binary by looking for it in the directories specified in the `PATH` variable one by one.
 
 As we added our path to the beginning, the system will see our version of `lshw` first, and execute it. With the listener ready, I run `/bin/sysinfo` and got a reverse shell connection back as `root`.
 
-{{< img src="/images/htb_magic/root.png">}}
+{{< img src="/images/writeup/htb_magic/root.png">}}

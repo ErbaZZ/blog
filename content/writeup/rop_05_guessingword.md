@@ -12,13 +12,13 @@ tags: [rop, web, ctf, writeup]
 **Score:** 200 pts  
 **Link:** [https://game.rop.sh](https://game.rop.sh/task)  
 
-{{< img src="/images/rop/05/rop_05_challenge.png" alt="Challenge Description">}}*Guessing Word challenge description*
+{{< img src="/images/writeup/rop/05/rop_05_challenge.png" alt="Challenge Description">}}*Guessing Word challenge description*
 
 <!--more-->
 
 As usual, the challenge provides us with a link to the website. On the website, there's a text box and a button to submit the password that we need to "GUESS".
 
-{{< img src="/images/rop/05/rop_05_webpage.png" alt="Challenge Webpage">}}*Webpage of the challenge*
+{{< img src="/images/writeup/rop/05/rop_05_webpage.png" alt="Challenge Webpage">}}*Webpage of the challenge*
 
 Looking at the page source, we would see this:
 
@@ -73,7 +73,7 @@ Looking at the page source, we would see this:
 We can see that the form would send a POST request with the password in the textbox to **index.php**.
 So let's try inputting *test* into the form and press *Enter*.
 
-{{< img src="/images/rop/05/rop_05_wrong.png" alt="Result">}}*Result*
+{{< img src="/images/writeup/rop/05/rop_05_wrong.png" alt="Result">}}*Result*
 
 Apparently, we guessed wrong. Let's see the source.
 
@@ -94,7 +94,7 @@ We need to do something with the input of the form, one of the possibilities wou
 
 Hmmm...? **?debug for DEBUGGING**? Let's try it then, changing the target of the POST request to **index.php?debug** and submit again.
 
-{{< img src="/images/rop/05/rop_05_wrong.png" alt="Debug Result">}}*Result with ?debug*
+{{< img src="/images/writeup/rop/05/rop_05_wrong.png" alt="Debug Result">}}*Result with ?debug*
 
 The page looks the same; however, something interesting appears in the source.
 
@@ -173,10 +173,10 @@ The script would rotate the characters from the list to send as an input, after 
 
 After waiting for a while, we got our password.
 
-{{< img src="/images/rop/05/rop_05_output.png" alt="Script Output">}}*Script Output*
+{{< img src="/images/writeup/rop/05/rop_05_output.png" alt="Script Output">}}*Script Output*
 
 Inputting this key manually on the website yields this result:
 
-{{< img src="/images/rop/05/rop_05_key.png" alt="Result">}}*Result*
+{{< img src="/images/writeup/rop/05/rop_05_key.png" alt="Result">}}*Result*
 
 Success!
